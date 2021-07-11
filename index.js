@@ -22,8 +22,8 @@ app.use(function(req, res, next) {
 
 app.use("/api/user", userRouter);
 app.use("/api/template", templateRouter);
-
 app.use("/api/upload-image", imageRouter);
+app.use(express.static('images'))
 
 const init = async () => {
   await database.init([]);
