@@ -19,8 +19,11 @@ const templateSchema = new Schema({
     required: true
   },
   color: {
-    type: String,
-    required: true,
+    type: Array,
+  },
+  backgroundColor: {
+    type: Array,
+    required: true
   },
   hidden: {
     type: Boolean,

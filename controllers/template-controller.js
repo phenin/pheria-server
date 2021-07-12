@@ -14,6 +14,7 @@ const createTemplate = async (req, res) => {
     type,
     image,
     color,
+    backgroundColor
   } = req.body || {};
   if ( !name || !group || !type ) {
 		return responseBadRequest(res);
@@ -25,6 +26,7 @@ const createTemplate = async (req, res) => {
     type,
     image,
     color,
+    backgroundColor
   }
 
   let result
@@ -43,7 +45,7 @@ const getListTemplate = async (req, res) => {
   let {
     page,
     limit,
-  } = req.params || {};
+  } = req.query || {};
 
   if(!page ){
     page = 0
