@@ -5,6 +5,7 @@ const database = require("./database");
 
 const userRouter = require('./routes/user-routes');
 const templateRouter = require('./routes/template-routes');
+const groupTemplateRouter = require('./routes/group-template-routes');
 
 const imageRouter = require('./routes/image-routes');
 
@@ -23,6 +24,8 @@ app.use(function(req, res, next) {
 app.use("/api/user", userRouter);
 app.use("/api/template", templateRouter);
 app.use("/api/upload-image", imageRouter);
+app.use("/api/group-template", groupTemplateRouter);
+
 app.use(express.static('images'))
 
 const init = async () => {
