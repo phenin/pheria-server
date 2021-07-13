@@ -78,10 +78,8 @@ const updateGroupTemplate = async (req, res) => {
   } = req.params || {};
   const {
     name,
-    group,
-    type,
-    image,
-    color,
+    description,
+    image
   } = req.body || {};
   if ( !id ) {
 		return responseBadRequest(res);
@@ -92,10 +90,8 @@ const updateGroupTemplate = async (req, res) => {
   let update = {
     $set: { 
       name,
-      group,
-      type,
-      image,
-      color,
+      description,
+      image
     }
   }  
 

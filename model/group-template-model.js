@@ -41,7 +41,7 @@ groupTemplateSchema.statics = {
 	},
   async getListGroupTemplate() {
 		const groupTemplate = await this.find({});
-		return { groupTemplate, total };
+		return { groupTemplate };
 	},
   async getGroupTemplateById(id) {
     const groupTemplate = await this.findById(id);
