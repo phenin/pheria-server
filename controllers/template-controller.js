@@ -51,7 +51,7 @@ const getListTemplate = async (req, res) => {
     page = 0
   }
   if(!limit){
-    limit = 2
+    limit = 5
   }
 
   let result

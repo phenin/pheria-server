@@ -6,6 +6,13 @@ const groupTemplateSchema = new Schema({
       type: String,
       required: true
     },
+    description: {
+      type: String,
+    },
+    image: {
+      type: String,
+      required: true
+    },
     hidden:{ type: Boolean, default: false },
     datecreate: { type: Date, default: Date.now },
     dateedit: { type: Date }
@@ -28,7 +35,7 @@ groupTemplateSchema.statics = {
 		query = query;
 		start = parseInt(start);
 		limit = parseInt(limit);
-		const groupTemplate = await this.find(query).limit(limit).skip(start);
+		const groupTemplate = await this.find(query).limit(limit).skip((start - 1) * limit + 1);
 		const total = await this.countDocuments();
 		return { groupTemplate, total };
 	},

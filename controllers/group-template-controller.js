@@ -3,25 +3,29 @@ const {
   responseError,
 } = require("../middleware/auth");
 
-const groupgroupTemplateModel = require("../model/group-template-model");
+const groupTemplateModel = require("../model/group-template-model");
 
 const {ObjectId} = require('mongodb')
 
 const createGroupTemplate = async (req, res) => {
   const {
     name,
+    description,
+    image
   } = req.body || {};
-  if ( !name || !group || !type ) {
+  if ( !name || !image ) {
 		return responseBadRequest(res);
   }
 
   const data = {
     name,
+    description,
+    image
   }
 
   let result
   try {
-    result = await groupgroupTemplateModel.createGroupTemplate(data)
+    result = await groupTemplateModel.createGroupTemplate(data)
   } catch (e) {
     return responseError(res, e)
   }
@@ -82,7 +86,9 @@ const updateGroupTemplate = async (req, res) => {
   if ( !id ) {
 		return responseBadRequest(res);
   }
-  
+  const filter = {
+    _id: ObjectId(id)
+  }
   let update = {
     $set: { 
       name,
@@ -95,7 +101,7 @@ const updateGroupTemplate = async (req, res) => {
 
   let result
   try {
-    result = await groupTemplateModel.updateGroupTemplate(ObjectId(id), update);
+    result = await groupTemplateModel.updateGroupTemplate(filter, update);
   } catch (e) {
     return responseError(res, (e || {}));
   }

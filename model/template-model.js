@@ -46,17 +46,16 @@ templateSchema.statics = {
     } catch (err) {
       // logger.error("createTÏemplate error. " + err.message);
     }
-    console.log(template)
     return template;
   },
   async updateTemplate(_id, update) {
     return await this.findByIdAndUpdate(_id, update)
   },
   async getListTemplate(start, limit, query) {
-		query = query;
+		query = query || {} ;
 		start = parseInt(start);
 		limit = parseInt(limit);
-		const template = await this.find(query).limit(limit).skip(start);
+		const template = await this.find(query).limit(limit).skip((start - 1) * limit + 1);
 		const total = await this.countDocuments();
 		return { template, total };
 	},
