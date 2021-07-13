@@ -26,7 +26,7 @@ app.use("/api/template", templateRouter);
 app.use("/api/upload-image", imageRouter);
 app.use("/api/group-template", groupTemplateRouter);
 
-app.use(express.static('images'))
+app.use('/images',express.static('images'))
 
 const init = async () => {
   await database.init([]);

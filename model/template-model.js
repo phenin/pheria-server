@@ -55,7 +55,7 @@ templateSchema.statics = {
 		query = query || {} ;
 		start = parseInt(start);
 		limit = parseInt(limit);
-		const template = await this.find(query).limit(limit).skip((start - 1) * limit + 1);
+		const template = await this.find(query).limit(limit).skip((start - 1) * limit );
 		const total = await this.countDocuments();
 		return { template, total };
 	},
