@@ -42,7 +42,7 @@ const getListGroupTemplatePagination = async (req, res) => {
   } = req.params || {};
 
   if(!page ){
-    page = 0
+    page = 1
   }
   if(!limit){
     limit = 2

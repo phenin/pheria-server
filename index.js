@@ -6,6 +6,7 @@ const database = require("./database");
 const userRouter = require('./routes/user-routes');
 const templateRouter = require('./routes/template-routes');
 const groupTemplateRouter = require('./routes/group-template-routes');
+const storyRouter = require('./routes/story-routes');
 
 const imageRouter = require('./routes/image-routes');
 
@@ -25,6 +26,7 @@ app.use("/api/user", userRouter);
 app.use("/api/template", templateRouter);
 app.use("/api/upload-image", imageRouter);
 app.use("/api/group-template", groupTemplateRouter);
+app.use("/api/story", storyRouter);
 
 app.use('/images',express.static('images'))
 

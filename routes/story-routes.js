@@ -8,13 +8,20 @@ const { authorizeJWTToken } = auth;
 const storyController = require("../controllers/story-controller");
 
 router.post('/',
-storyController.createStory
+  authorizeJWTToken,
+  storyController.createStory
 )
 
-// router.get('/:id',
-//   authorizeJWTToken,
-//   storyController.getDetailUser
-// )
+router.get('/',
+  authorizeJWTToken,
+  storyController.getListStory
+)
+
+
+router.get('/:id',
+  authorizeJWTToken,
+  storyController.getDetailStory
+)
 
 // router.put('/:id',
 //   authorizeJWTToken,

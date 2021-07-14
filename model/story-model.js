@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const Status = Object.freeze({
-  Sexual: 'Sexual',
+  Sexual: 'sexual',
   Prohibited: 'prohibited'
 })
 
@@ -12,7 +12,7 @@ const storySchema = new Schema({
     required: true
   },
   content: {
-    type: String,
+    type: Array,
     required: true
   },
   type: {
@@ -20,21 +20,33 @@ const storySchema = new Schema({
     required: true
   },
   template: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'template',
     required: true
   },
   image: {
     type: String,
-    required: true
   },
   heart: {
-    type: String,
-    required: true,
+    type: Number,
+    default: 0
+  },
+  view: {
+    type: Number,
     default: 0
   },
   status: {
     type: String,
     enum: Object.values(Status),
+  },
+  swearword: {
+    type: Array,
+  },
+  topping: {
+    type: String,
+  },
+  music: {
+    type: String,
   },
   hidden: {
     type: Boolean,
@@ -55,6 +67,7 @@ Object.assign(storySchema.statics, {
 
 storySchema.statics = {
   async createStory(data) {
+    
     const story = new this(data);
     try {
       await story.save();
@@ -66,8 +79,17 @@ storySchema.statics = {
   async updateStory(_id, update) {
     return await this.findByIdAndUpdate(_id, update)
   },
+  async getListStory(start, limit, query) {
+		query = query || {} ;
+		start = parseInt(start);
+		limit = parseInt(limit);
+		const story = await this.find(query).limit(limit).skip((start - 1) * limit );
+		const total = await this.countDocuments();
+		return { story, total };
+	},
   async getStoryById(id) {
-    return this.findById(id).select('-password');
+    const story = await this.findById(id).populate('template');
+    return story;
   },
 }
 

@@ -13,9 +13,9 @@ const createStory = async (req, res) => {
     content,
     type,
     template,
-    image
+    image,
   } = req.body || {};
-  if ( !title || !content || !type ) {
+  if ( !title || !content || !type || !template ) {
 		return responseBadRequest(res);
   }
 
@@ -25,7 +25,6 @@ const createStory = async (req, res) => {
     type,
     template,
     image,
-    heart: 0
   }
 
   let result
@@ -39,6 +38,54 @@ const createStory = async (req, res) => {
 
 }
 
+const getDetailStory = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+  console.log(id)
+
+  let story 
+  try {
+    story = await storyModel.getStoryById(ObjectId(id));
+  } catch (e) {
+    // console.log('partner e', e)
+  }
+  if (!story) {
+    return responseError(res, { status: 404, message: 'story not found' });
+  }
+  
+  res.json({story});
+}
+
+const getListStory = async (req, res) => {
+  let {
+    page,
+    limit,
+  } = req.query || {};
+
+  if(!page ){
+    page = 1
+  }
+  if(!limit){
+    limit = 5
+  }
+
+  let result
+  try {
+    result = await storyModel.getListStory(page, limit)
+  } catch (e) {
+    return responseError(res, e)
+  }
+
+  res.json(result);
+
+}
+
 module.exports = {
-  createStory
+  createStory,
+  getDetailStory,
+  getListStory
 }

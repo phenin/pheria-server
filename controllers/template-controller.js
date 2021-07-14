@@ -48,7 +48,7 @@ const getListTemplate = async (req, res) => {
   } = req.query || {};
 
   if(!page ){
-    page = 0
+    page = 1
   }
   if(!limit){
     limit = 5
