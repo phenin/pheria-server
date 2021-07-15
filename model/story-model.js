@@ -21,7 +21,7 @@ const storySchema = new Schema({
   },
   template: {
     type: Schema.Types.ObjectId,
-    ref: 'template',
+    ref: 'Template',
     required: true
   },
   image: {
