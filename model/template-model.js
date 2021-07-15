@@ -6,6 +6,10 @@ const templateSchema = new Schema({
     type: String,
     required: true
   },
+  code: {
+    type: String,
+    required: true
+  },
   group: {
     type: String,
     required: true
@@ -63,5 +67,9 @@ templateSchema.statics = {
     const template = await this.findById(id);
     return {template}
   },
+  async getListTemplateByGroup(group) {
+    const template = await this.find({group})
+    return template
+  }
 }
 module.exports = mongoose.model('Template', templateSchema, 'template')

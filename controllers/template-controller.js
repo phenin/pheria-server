@@ -10,6 +10,7 @@ const {ObjectId} = require('mongodb')
 const createTemplate = async (req, res) => {
   const {
     name,
+    code,
     group,
     type,
     image,
@@ -38,6 +39,7 @@ const createTemplate = async (req, res) => {
 
   const data = {
     name,
+    code,
     group,
     type,
     image,
@@ -81,12 +83,29 @@ const getListTemplate = async (req, res) => {
 
 }
 
+const getListTemplateByGroup = async (req, res) => {
+  const {
+    group,
+  } = req.params || {};
+
+  let result
+  try {
+    result = await templateModel.getListTemplateByGroup(group)
+  } catch (e) {
+    return responseError(res, e)
+  }
+
+  res.json(result);
+
+}
+
 const updateTemplate = async (req, res) => {
   const {
     id,
   } = req.params || {};
   const {
     name,
+    code,
     group,
     type,
     image,
@@ -102,6 +121,7 @@ const updateTemplate = async (req, res) => {
   let update = {
     $set: { 
       name,
+      code,
       group,
       type,
       image,
@@ -143,7 +163,6 @@ const getDetailTemplate = async (req, res) => {
   } catch (e) {
     // console.log('partner e', e)
   }
-  console.log(template)
   if (!template) {
     return responseError(res, { status: 404, message: 'template not found' });
   }
@@ -155,6 +174,7 @@ const getDetailTemplate = async (req, res) => {
 module.exports = {
   createTemplate,
   getListTemplate,
+  getListTemplateByGroup,
   updateTemplate,
   getDetailTemplate
 }

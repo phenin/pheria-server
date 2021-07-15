@@ -37,4 +37,10 @@ router.put('/:id',
   groupTemplateController.updateGroupTemplate
 )
 
+router.delete('/:id',
+  authorizeJWTToken,
+  isAdmin,
+  groupTemplateController.hiddenGroupTemplate
+)
+
 module.exports = router;

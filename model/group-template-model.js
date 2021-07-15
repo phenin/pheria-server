@@ -47,6 +47,11 @@ groupTemplateSchema.statics = {
     const groupTemplate = await this.findById(id);
     return {groupTemplate}
   },
+  async hiddenGroupTemplate(_id) {
+    return await this.findByIdAndUpdate(_id, {
+      $set: { hidden: true }
+    })
+  },
 }
 
 module.exports = mongoose.model('GroupTemplate', groupTemplateSchema, 'groupTemplate')

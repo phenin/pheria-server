@@ -21,8 +21,12 @@ router.get('/',
 
 router.get('/:id',
   authorizeJWTToken,
-  isAdmin,
   templateController.getDetailTemplate
+)
+
+router.get('/group/:group',
+  authorizeJWTToken,
+  templateController.getListTemplateByGroup
 )
 
 router.put('/:id',

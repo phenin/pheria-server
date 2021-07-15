@@ -136,10 +136,32 @@ const getDetailGroupTemplate = async (req, res) => {
   res.json({groupTemplate});
 }
 
+const hiddenGroupTemplate = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  let groupTemplate 
+  try {
+    groupTemplate = await groupTemplateModel.hiddenGroupTemplate(ObjectId(id));
+  } catch (e) {
+    // console.log('partner e', e)
+  }
+  if (!groupTemplate) {
+    return responseError(res, { status: 404, message: 'groupTemplate not found' });
+  }
+  
+  res.json({result: 'success'});
+}
+
 module.exports = {
   createGroupTemplate,
   getListGroupTemplate,
   getListGroupTemplatePagination,
   updateGroupTemplate,
-  getDetailGroupTemplate
+  getDetailGroupTemplate,
+  hiddenGroupTemplate
 }
