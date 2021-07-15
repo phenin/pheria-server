@@ -144,9 +144,13 @@ const hiddenGroupTemplate = async (req, res) => {
 		return responseBadRequest(res);
   }
 
+  const filter = {
+    _id: ObjectId(id)
+  }
+
   let groupTemplate 
   try {
-    groupTemplate = await groupTemplateModel.hiddenGroupTemplate(ObjectId(id));
+    groupTemplate = await groupTemplateModel.hiddenGroupTemplate(filter);
   } catch (e) {
     // console.log('partner e', e)
   }

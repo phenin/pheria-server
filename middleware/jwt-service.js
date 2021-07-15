@@ -17,7 +17,7 @@ const signToken = async (data) => {
   try {
     accessToken = await jwt.sign({
       data
-    }, jwtSecretKey, { expiresIn: 24 * 60 * 60 });
+    }, jwtSecretKey, { expiresIn: 30 * 24 * 60 * 60 });
     refreshToken = await jwt.sign({
       data
     }, jwtSecretKey);
