@@ -35,12 +35,12 @@ groupTemplateSchema.statics = {
 		query = query;
 		start = parseInt(start);
 		limit = parseInt(limit);
-		const groupTemplate = await this.find(query).limit(limit).skip((start - 1) * limit );
+		const groupTemplate = await this.find({hidden: false}).limit(limit).skip((start - 1) * limit );
 		const total = await this.countDocuments();
 		return { groupTemplate, total };
 	},
   async getListGroupTemplate() {
-		const groupTemplate = await this.find({});
+		const groupTemplate = await this.find({hidden: false});
 		return { groupTemplate };
 	},
   async getGroupTemplateById(id) {
