@@ -14,10 +14,26 @@ const createTemplate = async (req, res) => {
     type,
     image,
     color,
-    backgroundColor
   } = req.body || {};
+  let { backgroundColor } = req.body || {};
   if ( !name || !group || !type ) {
 		return responseBadRequest(res);
+  }
+
+  if (backgroundColor.includes(",") ){
+    backgroundColor = backgroundColor.split(',')
+  }
+  else if (backgroundColor.includes(" ") ){
+    backgroundColor = backgroundColor.split(' ')
+  }
+  else if (backgroundColor.includes(", ") ){
+    backgroundColor = backgroundColor.split(', ')
+  }
+  else if (backgroundColor.includes("|") ){
+    backgroundColor = backgroundColor.split('|')
+  }
+  else if (backgroundColor.includes("/") ){
+    backgroundColor = backgroundColor.split('/')
   }
 
   const data = {
