@@ -70,6 +70,11 @@ templateSchema.statics = {
   async getListTemplateByGroup(group) {
     const template = await this.find({group})
     return template
-  }
+  },
+  async hiddenTemplate(_id) {
+    return await this.findByIdAndUpdate(_id, {
+      hidden: true 
+    })
+  },
 }
 module.exports = mongoose.model('Template', templateSchema, 'template')

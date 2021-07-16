@@ -35,4 +35,10 @@ router.put('/:id',
   templateController.updateTemplate
 )
 
+router.delete('/:id',
+  authorizeJWTToken,
+  isAdmin,
+  templateController.deleteTemplate
+)
+
 module.exports = router;

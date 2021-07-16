@@ -27,23 +27,42 @@ const storySchema = new Schema({
   image: {
     type: String,
   },
-  heart: {
-    type: Number,
-    default: 0
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
-  view: {
-    type: Number,
-    default: 0
-  },
+  hearts: [
+    { 
+      type: Schema.Types.ObjectId, 
+      ref: 'User' 
+    }
+  ],
+  views: [
+    { 
+      type: Schema.Types.ObjectId, 
+      ref: 'User' 
+    }
+  ],
+  comments: [
+    {
+      user: {
+        type: Schema.ObjectId, 
+        ref: 'User'
+      },
+      content: {
+        type: String,
+      }
+    }
+  ],
   status: {
     type: String,
     enum: Object.values(Status),
   },
-  swearword: {
+  swearwords: {
     type: Array,
   },
-  topping: {
-    type: String,
+  toppings: {
+    type: Array,
   },
   music: {
     type: String,

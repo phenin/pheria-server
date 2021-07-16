@@ -29,7 +29,7 @@ groupTemplateSchema.statics = {
     return groupTemplate;
   },
   async updateGroupTemplate(_id, update) {
-    return await this.findByIdAndUpdate(_id, update)
+    return await this.findByIdAndUpdate(_id, update, { new: true })
   },
   async getListGroupTemplatePagination(start, limit, query) {
 		query = query;
@@ -49,7 +49,7 @@ groupTemplateSchema.statics = {
   },
   async hiddenGroupTemplate(_id) {
     return await this.findByIdAndUpdate(_id, {
-      $set: { hidden: true }
+      hidden: true 
     })
   },
 }

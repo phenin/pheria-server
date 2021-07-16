@@ -95,24 +95,13 @@ const updateGroupTemplate = async (req, res) => {
     }
   }  
 
-  let result
   try {
     result = await groupTemplateModel.updateGroupTemplate(filter, update);
   } catch (e) {
     return responseError(res, (e || {}));
   }
-
-  let groupTemplate 
-  try {
-    groupTemplate = await groupTemplateModel.getGroupTemplateById(ObjectId(id));
-  } catch (e) {
-    // console.log('partner e', e)
-  }
-  if (!groupTemplate) {
-    return responseError(res, { status: 404, message: 'group groupTemplate not found' });
-  }
   
-  res.json({result: groupTemplate});
+  res.json({result: result});
 }
 
 const getDetailGroupTemplate = async (req, res) => {
@@ -144,13 +133,9 @@ const hiddenGroupTemplate = async (req, res) => {
 		return responseBadRequest(res);
   }
 
-  const filter = {
-    _id: ObjectId(id)
-  }
-
   let groupTemplate 
   try {
-    groupTemplate = await groupTemplateModel.hiddenGroupTemplate(filter);
+    groupTemplate = await groupTemplateModel.hiddenGroupTemplate(ObjectId(id));
   } catch (e) {
     // console.log('partner e', e)
   }

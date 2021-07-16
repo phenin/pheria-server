@@ -115,23 +115,18 @@ const updateTemplate = async (req, res) => {
 		return responseBadRequest(res);
   }
 
-  const filter = {
-    _id: ObjectId(id)
-  }
   let update = {
-    $set: { 
-      name,
-      code,
-      group,
-      type,
-      image,
-      color,
-    }
+    name,
+    code,
+    group,
+    type,
+    image,
+    color,
   }  
 
   let result
   try {
-    result = await templateModel.updateTemplate(filter, update);
+    result = await templateModel.updateTemplate(ObjectId(id), update);
   } catch (e) {
     return responseError(res, (e || {}));
   }
@@ -170,11 +165,28 @@ const getDetailTemplate = async (req, res) => {
   res.json({template});
 }
 
+const deleteTemplate = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  try {
+    await templateModel.hiddenTemplate(ObjectId(id));
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: 'success'});
+}
 
 module.exports = {
   createTemplate,
   getListTemplate,
   getListTemplateByGroup,
   updateTemplate,
-  getDetailTemplate
+  getDetailTemplate,
+  deleteTemplate
 }

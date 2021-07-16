@@ -23,9 +23,9 @@ router.get('/:id',
   storyController.getDetailStory
 )
 
-// router.put('/:id',
-//   authorizeJWTToken,
-//   storyController.updateUser
-// )
+router.patch('/:id/heart',
+  authorizeJWTToken,
+  storyController.heartStory
+)
 
 module.exports = router;
