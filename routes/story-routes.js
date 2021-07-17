@@ -28,4 +28,9 @@ router.patch('/:id/heart',
   storyController.heartStory
 )
 
+router.patch('/:id/censorship',
+  authorizeJWTToken,
+  storyController.censorshipStory
+)
+
 module.exports = router;

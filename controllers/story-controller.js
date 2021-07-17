@@ -73,6 +73,7 @@ const getListStory = async (req, res) => {
   let {
     page,
     limit,
+    status
   } = req.query || {};
 
   if(!page ){
@@ -84,7 +85,7 @@ const getListStory = async (req, res) => {
 
   let result
   try {
-    result = await storyModel.getListStory(page, limit)
+    result = await storyModel.getListStory(page, limit, {status})
   } catch (e) {
     return responseError(res, e)
   }
@@ -118,10 +119,39 @@ const heartStory = async (req, res) => {
   res.json({result: 'success'});
 }
 
+const censorshipStory = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+
+  const {
+    status,
+    swearwords
+  } = req.body || {};
+  
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  let update = {
+    status,
+    swearwords
+  }  
+
+  let result
+  try {
+    result = await storyModel.updateStory(ObjectId(id), update);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: 'success'});
+}
 
 module.exports = {
   createStory,
   getDetailStory,
   getListStory,
-  heartStory
+  heartStory,
+  censorshipStory
 }
