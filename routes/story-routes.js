@@ -13,10 +13,8 @@ router.post('/',
 )
 
 router.get('/',
-  authorizeJWTToken,
   storyController.getListStory
 )
-
 
 router.get('/:id',
   authorizeJWTToken,
