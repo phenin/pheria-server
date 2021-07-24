@@ -41,3 +41,5 @@ app.listen(8001, () => {
   init()
   console.log('App is listening on url http://localhost:8001')
 });
+
+module.exports = app
