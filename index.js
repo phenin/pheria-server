@@ -22,6 +22,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get("/", (req, res)=> {
+  res.send("Hello world")
+})
 app.use("/api/user", userRouter);
 app.use("/api/template", templateRouter);
 app.use("/api/upload-image", imageRouter);
