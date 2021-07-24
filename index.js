@@ -51,8 +51,8 @@ app.get('/', (req, res) => {
   res.send('Express on Vercel')
 })
 
-app.listen(5000, () => {
-  console.log('Running on port 5000.')
+app.listen(8000, () => {
+  console.log('Running on port 8000.')
 })
 
 // Export the Express API
