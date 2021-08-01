@@ -12,39 +12,21 @@ const createTemplate = async (req, res) => {
     name,
     code,
     group,
-    type,
-    image,
-    color,
+    width,
+    height,
+    image
   } = req.body || {};
-  let { backgroundColor } = req.body || {};
-  if ( !name || !group || !type ) {
+  if ( !name || !code || !group || !width || !height || !image ) {
 		return responseBadRequest(res);
-  }
-
-  if (backgroundColor.includes(",") ){
-    backgroundColor = backgroundColor.split(',')
-  }
-  else if (backgroundColor.includes(" ") ){
-    backgroundColor = backgroundColor.split(' ')
-  }
-  else if (backgroundColor.includes(", ") ){
-    backgroundColor = backgroundColor.split(', ')
-  }
-  else if (backgroundColor.includes("|") ){
-    backgroundColor = backgroundColor.split('|')
-  }
-  else if (backgroundColor.includes("/") ){
-    backgroundColor = backgroundColor.split('/')
   }
 
   const data = {
     name,
     code,
     group,
-    type,
-    image,
-    color,
-    backgroundColor
+    width,
+    height,
+    image
   }
 
   let result
@@ -107,9 +89,9 @@ const updateTemplate = async (req, res) => {
     name,
     code,
     group,
-    type,
-    image,
-    color,
+    width,
+    height,
+    image
   } = req.body || {};
   if ( !id ) {
 		return responseBadRequest(res);
@@ -119,9 +101,9 @@ const updateTemplate = async (req, res) => {
     name,
     code,
     group,
-    type,
-    image,
-    color,
+    width,
+    height,
+    image
   }  
 
   let result

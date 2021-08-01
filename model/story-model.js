@@ -11,19 +11,52 @@ const storySchema = new Schema({
     type: String,
     required: true
   },
-  content: {
-    type: Array,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true
-  },
-  template: {
+  background: {
     type: Schema.Types.ObjectId,
-    ref: 'Template',
+    ref: 'Background',
     required: true
   },
+  contents: [
+    {
+      text: {
+        type: String,
+        required: true
+      },
+      width: {
+        type: Number,
+        required: true
+      },
+      height: {
+        type: Number,
+        required: true
+      },
+      x: {
+        type: Number,
+        required: true
+      },
+      y: {
+        type: Number,
+        required: true
+      }
+    }
+  ],
+  templates: [
+    {
+      template: {
+        type: Schema.Types.ObjectId,
+        ref: 'Template',
+        required: true
+      },
+      x: {
+        type: Number,
+        required: true
+      },
+      y: {
+        type: Number,
+        required: true
+      }
+    }
+  ],
   image: {
     type: String,
   },
@@ -59,9 +92,6 @@ const storySchema = new Schema({
     enum: Object.values(Status),
   },
   swearwords: {
-    type: Array,
-  },
-  toppings: {
     type: Array,
   },
   music: {

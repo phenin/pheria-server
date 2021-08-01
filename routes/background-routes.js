@@ -5,39 +5,41 @@ const auth = require("../middleware/auth");
 
 const { authorizeJWTToken, isAdmin } = auth;
 
-const templateController = require("../controllers/template-controller");
+const backgroundController = require("../controllers/background-controller");
 
 router.post('/',
   authorizeJWTToken,
   isAdmin,
-  templateController.createTemplate
+  backgroundController.createBackground
 )
 
 router.get('/',
   authorizeJWTToken,
-  templateController.getListTemplate
+  backgroundController.getListBackground
+)
+
+router.get('/pagination',
+  authorizeJWTToken,
+  isAdmin,
+  backgroundController.getListBackgroundPagination
 )
 
 router.get('/:id',
   authorizeJWTToken,
-  templateController.getDetailTemplate
-)
-
-router.get('/group/:group',
-  authorizeJWTToken,
-  templateController.getListTemplateByGroup
+  isAdmin,
+  backgroundController.getDetailBackground
 )
 
 router.put('/:id',
   authorizeJWTToken,
   isAdmin,
-  templateController.updateTemplate
+  backgroundController.updateBackground
 )
 
 router.delete('/:id',
   authorizeJWTToken,
   isAdmin,
-  templateController.deleteTemplate
+  backgroundController.hiddenBackground
 )
 
 module.exports = router;

@@ -15,7 +15,6 @@ router.post('/',
 
 router.get('/',
   authorizeJWTToken,
-  isAdmin,
   groupTemplateController.getListGroupTemplate
 )
 

@@ -32,7 +32,6 @@ userSchema.statics = {
     async createUser(data) {
 		const user = new this(data);
 		try {
-            console.log(user)
 			await user.save();
 		} catch (err) {
 			// logger.error("createUser error. " + err.message);

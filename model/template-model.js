@@ -11,23 +11,20 @@ const templateSchema = new Schema({
     required: true
   },
   group: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'GroupTemplate',
     required: true
   },
-  type: {
-    type: String,
+  width: {
+    type: Number,
+    required: true
+  },
+  height: {
+    type: Number,
     required: true
   },
   image: {
-    type: Array,
-    required: true
-  },
-  color: {
-    type: Array,
-  },
-  backgroundColor: {
-    type: Array,
-    required: true
+    type: String,
   },
   hidden: {
     type: Boolean,

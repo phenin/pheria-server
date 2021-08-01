@@ -60,14 +60,13 @@ const getListGroupTemplatePagination = async (req, res) => {
 }
 
 const getListGroupTemplate = async (req, res) => {
-
   let result
   try {
     result = await groupTemplateModel.getListGroupTemplate()
+    
   } catch (e) {
     return responseError(res, e)
   }
-
   res.json(result);
 
 }
@@ -84,19 +83,15 @@ const updateGroupTemplate = async (req, res) => {
   if ( !id ) {
 		return responseBadRequest(res);
   }
-  const filter = {
-    _id: ObjectId(id)
-  }
+  
   let update = {
-    $set: { 
-      name,
-      description,
-      image
-    }
+    name,
+    description,
+    image
   }  
 
   try {
-    result = await groupTemplateModel.updateGroupTemplate(filter, update);
+    result = await groupTemplateModel.updateGroupTemplate(ObjectId(id), update);
   } catch (e) {
     return responseError(res, (e || {}));
   }

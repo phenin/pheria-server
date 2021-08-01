@@ -9,10 +9,6 @@ const groupTemplateSchema = new Schema({
     description: {
       type: String,
     },
-    image: {
-      type: String,
-      required: true
-    },
     hidden:{ type: Boolean, default: false },
     datecreate: { type: Date, default: Date.now },
     dateedit: { type: Date }
@@ -45,7 +41,7 @@ groupTemplateSchema.statics = {
 	},
   async getGroupTemplateById(id) {
     const groupTemplate = await this.findById(id);
-    return {groupTemplate}
+    return groupTemplate
   },
   async hiddenGroupTemplate(_id) {
     return await this.findByIdAndUpdate(_id, {
