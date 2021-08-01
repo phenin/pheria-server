@@ -14,7 +14,7 @@ const backgroundSchema = new Schema({
     type: String,
   },
   color: {
-    type: Array,
+    type: String,
   },
   backgroundColor: {
     type: Array,
@@ -38,7 +38,6 @@ backgroundSchema.statics = {
     try {
       await background.save();
     } catch (err) {
-      console.log(err)
     }
     return background;
   },
