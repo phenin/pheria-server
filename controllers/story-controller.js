@@ -10,21 +10,25 @@ const {ObjectId} = require('mongodb')
 const createStory = async (req, res) => {
   const {
     title,
-    content,
-    type,
-    template,
+    background,
+    contents,
+    templates,
     image,
   } = req.body || {};
-  if ( !title || !content || !type || !template ) {
+
+  const {_id} = req.user
+
+  if ( !title || !background || !contents || !templates ) {
 		return responseBadRequest(res);
   }
 
   const data = {
     title,
-    content,
-    type,
-    template,
+    background,
+    contents,
+    templates,
     image,
+    author: _id
   }
 
   let result

@@ -37,6 +37,10 @@ const storySchema = new Schema({
       y: {
         type: Number,
         required: true
+      },
+      uuid: {
+        type: String,
+        required: true
       }
     }
   ],
@@ -53,6 +57,10 @@ const storySchema = new Schema({
       },
       y: {
         type: Number,
+        required: true
+      },
+      uuid: {
+        type: String,
         required: true
       }
     }
