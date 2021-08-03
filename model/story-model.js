@@ -41,7 +41,7 @@ const storySchema = new Schema({
       uuid: {
         type: String,
         required: true
-      }
+      },
     }
   ],
   templates: [
@@ -62,7 +62,7 @@ const storySchema = new Schema({
       uuid: {
         type: String,
         required: true
-      }
+      },
     }
   ],
   image: {
@@ -124,7 +124,7 @@ Object.assign(storySchema.statics, {
 
 storySchema.statics = {
   async createStory(data) {
-    
+    console.log("cccc")
     const story = new this(data);
     try {
       await story.save();
@@ -137,7 +137,7 @@ storySchema.statics = {
     return await this.findByIdAndUpdate(_id, update)
   },
   async getListStory(start, limit, query) {
-		query = query || {} ;
+		query = query || {};
 		start = parseInt(start);
 		limit = parseInt(limit);
 		const story = await this.find(query).limit(limit).skip((start - 1) * limit );
@@ -145,7 +145,7 @@ storySchema.statics = {
 		return { story, total };
 	},
   async getStoryById(id) {
-    const story = await this.findById(id).populate('template');
+    const story = await this.findById(id).populate('templates.template').populate('background').populate('author');
     return story;
   },
 }
