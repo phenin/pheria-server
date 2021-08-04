@@ -4,22 +4,32 @@ const {
 } = require("../middleware/auth");
 
 const storyModel = require("../model/story-model");
+const backgroundModel = require("../model/background-model");
 
 const {ObjectId} = require('mongodb')
 
 const createStory = async (req, res) => {
   const {
     title,
-    background,
     contents,
     templates,
     image,
+  } = req.body || {};
+
+  let {
+    background
   } = req.body || {};
 
   const {_id} = req.user
 
   if ( !title || !background || !contents || !templates ) {
 		return responseBadRequest(res);
+  }
+
+  if(background.backgroundColor.length === 1 && 
+    background.backgroundColor[0] === '#000000' && 
+    background.color === '#ffffff'){
+      background = await backgroundModel.getBackgroundDefault()
   }
 
   const data = {
@@ -30,7 +40,6 @@ const createStory = async (req, res) => {
     image,
     author: _id
   }
-  console.log(data)
   let result
   try {
     result = await storyModel.createStory(data)
@@ -69,34 +78,8 @@ const getDetailStory = async (req, res) => {
   if (!story) {
     return responseError(res, { status: 404, message: 'story not found' });
   }
-
-  const templates = story.templates.map((item, index)=>{
-    return {
-      template: item.template._id,
-      templateData: item.template,
-      x: item.x,
-      y: item.y,
-      _id: item._id
-    }
-  })
-
-  const convertStory = {
-    title: story.title,
-    background: story.background._id,
-    backgroundData: story.background,
-    templates: templates,
-    contents: story.contents,
-    image: story.image,
-    author: story.author,
-    hearts: story.hearts.length,
-    views: story.views.length,
-    comments: story.comments.length,
-    status: story.status,
-    music: story.music,
-    datecreate: story.datecreate
-  }
   
-  res.json({story: convertStory});
+  res.json({story});
 }
 
 const getListStory = async (req, res) => {

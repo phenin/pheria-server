@@ -38,10 +38,6 @@ const storySchema = new Schema({
         type: Number,
         required: true
       },
-      uuid: {
-        type: String,
-        required: true
-      },
     }
   ],
   templates: [
@@ -49,19 +45,12 @@ const storySchema = new Schema({
       template: {
         type: Schema.Types.ObjectId,
         ref: 'Template',
-        required: true
       },
       x: {
         type: Number,
-        required: true
       },
       y: {
         type: Number,
-        required: true
-      },
-      uuid: {
-        type: String,
-        required: true
       },
     }
   ],
@@ -124,7 +113,7 @@ Object.assign(storySchema.statics, {
 
 storySchema.statics = {
   async createStory(data) {
-    console.log("cccc")
+    console.log("cccc", data)
     const story = new this(data);
     try {
       await story.save();

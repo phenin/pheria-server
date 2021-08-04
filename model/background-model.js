@@ -56,6 +56,10 @@ backgroundSchema.statics = {
     const background = await this.findById(id);
     return background
   },
+  async getBackgroundDefault() {
+    const background = await this.findOne({backgroundColor: { "$in" : ["#000000"]} , color: '#ffffff'});
+    return background._id
+  },
   async hiddenBackground(_id) {
     return await this.findByIdAndUpdate(_id, {
       hidden: true 
