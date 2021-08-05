@@ -132,6 +132,32 @@ const heartStory = async (req, res) => {
   res.json({result: 'success'});
 }
 
+const unHeartStory = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+  
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  let update = {
+    $pull: { 
+      hearts: ObjectId(req.user._id)
+    }
+  }  
+
+  let result
+  try {
+    result = await storyModel.updateStory(ObjectId(id), update);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: 'success'});
+}
+
+
 const censorshipStory = async (req, res) => {
   const {
     id,
@@ -166,5 +192,6 @@ module.exports = {
   getDetailStory,
   getListStory,
   heartStory,
+  unHeartStory,
   censorshipStory
 }

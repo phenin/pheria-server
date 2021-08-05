@@ -26,6 +26,11 @@ router.patch('/:id/heart',
   storyController.heartStory
 )
 
+router.patch('/:id/unHeart',
+  authorizeJWTToken,
+  storyController.unHeartStory
+)
+
 router.patch('/:id/censorship',
   authorizeJWTToken,
   storyController.censorshipStory
