@@ -8,7 +8,7 @@ const templateRouter = require('./routes/template-routes');
 const groupTemplateRouter = require('./routes/group-template-routes');
 const backgroundRouter = require('./routes/background-routes');
 const storyRouter = require('./routes/story-routes');
-
+const commentRouter = require('./routes/comment-routes');
 const imageRouter = require('./routes/image-routes');
 
 const app = express();
@@ -32,6 +32,7 @@ app.use("/api/upload-image", imageRouter);
 app.use("/api/group-template", groupTemplateRouter);
 app.use("/api/background", backgroundRouter);
 app.use("/api/story", storyRouter);
+app.use("/api/comment", commentRouter);
 
 app.use('/images',express.static('images'))
 

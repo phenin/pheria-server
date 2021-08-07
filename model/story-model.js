@@ -74,14 +74,9 @@ const storySchema = new Schema({
     }
   ],
   comments: [
-    {
-      user: {
-        type: Schema.ObjectId, 
-        ref: 'User'
-      },
-      content: {
-        type: String,
-      }
+    { 
+      type: Schema.Types.ObjectId, 
+      ref: 'Comment' 
     }
   ],
   status: {

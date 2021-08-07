@@ -58,14 +58,11 @@ const getDetailStory = async (req, res) => {
   if ( !id ) {
 		return responseBadRequest(res);
   }
-  const filter = {
-    _id: ObjectId(id)
-  }
 
   let story 
   try {
     story = await storyModel.getStoryById(ObjectId(id));
-    await storyModel.updateStory(filter, {
+    await storyModel.updateStory(ObjectId(id), {
       $addToSet: {
         views: ObjectId(req.user._id)
       }
