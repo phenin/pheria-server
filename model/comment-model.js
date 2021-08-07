@@ -16,7 +16,19 @@ const commentSchema = new Schema({
     type: String,
     required: true
   },
-  replies: [ this ],
+  replies: [ 
+    {
+      author: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'User',
+        index: true
+      },
+      content: {
+        type: String,
+        required: true
+      },
+    } 
+  ],
   hidden: {
     type: Boolean,
     default: false
@@ -39,15 +51,17 @@ commentSchema.statics = {
     }
     return comment;
   },
-  async repliesComment(id, update) {
-    return await this.findByIdAndUpdate(id, update)
+  async repliesComment(_id, update) {
+    return await this.findByIdAndUpdate(_id, update)
   },
   async updateComment(_id, update) {
     return await this.findByIdAndUpdate(_id, update)
   },
   async getListComment(idStory) {
-		const comment = await this.find({hidden: false, story: idStory}).populate('author').populate('replies');
-		return { comment };
+		const comments = await this.find({hidden: false, story: idStory})
+      .populate('replies.author', ['name', 'picture'])
+      .populate('author', ['name', 'picture']);
+		return { comments };
 	},
   async getCommentById(id) {
     const comment = await this.findById(id);

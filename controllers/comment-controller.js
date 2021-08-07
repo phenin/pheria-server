@@ -36,7 +36,6 @@ const createComment = async (req, res) => {
 
 const repliesComment = async (req, res) => {
   const {
-    story,
     content,
   } = req.body || {};
 
@@ -44,12 +43,11 @@ const repliesComment = async (req, res) => {
     id
   } = req.params || {};
 
-  if ( !story || !content || !id ) {
+  if ( !content || !id ) {
 		return responseBadRequest(res);
   }
   
   const data = {
-    story,
     content,
     author: req.user._id
   }
