@@ -75,11 +75,13 @@ const getDetailStory = async (req, res) => {
     // console.log('partner e', e)
   }
 
+  const liked = story.hearts.find(item => item.toString() === req.user._id)
+
   if (!story) {
     return responseError(res, { status: 404, message: 'story not found' });
   }
   
-  res.json({story});
+  res.json({story, liked: !!liked});
 }
 
 const getListStory = async (req, res) => {

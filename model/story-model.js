@@ -113,7 +113,6 @@ Object.assign(storySchema.statics, {
 
 storySchema.statics = {
   async createStory(data) {
-    console.log("cccc", data)
     const story = new this(data);
     try {
       await story.save();
