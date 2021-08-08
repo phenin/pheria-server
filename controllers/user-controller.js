@@ -182,15 +182,12 @@ const login = async (req, res) => {
   if ( !email || !password) {
 		return responseBadRequest(res);
   }
-  console.log(email.toLowerCase(),
-    password)
   let user 
   try {
     user = await userModel.getUserByEmail(email.toLowerCase());
   } catch (e) {
     // console.log('partner e', e)
   }
-  console.log(user)
   if ( !user ) {
     return responseError(res, { status: 404, message: 'user not found' });
   }

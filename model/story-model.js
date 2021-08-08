@@ -128,7 +128,7 @@ storySchema.statics = {
 		return { story, total };
 	},
   async getStoryById(id) {
-    const story = await this.findById(id).populate('templates.template').populate('background').populate('author');
+    const story = await this.findById(id).populate('templates.template').populate('background').populate('author').select({ comments: 0 })
     return story;
   },
 }

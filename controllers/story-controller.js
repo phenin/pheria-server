@@ -72,6 +72,8 @@ const getDetailStory = async (req, res) => {
     // console.log('partner e', e)
   }
 
+  console.log(story)
+
   const liked = story.hearts.find(item => item.toString() === req.user._id)
 
   if (!story) {
