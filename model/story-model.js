@@ -127,6 +127,10 @@ storySchema.statics = {
 		const total = await this.countDocuments();
 		return { story, total };
 	},
+  async getYourListStory(iduser) {
+		const story = await this.find({author: iduser});
+		return { story };
+	},
   async getStoryById(id) {
     const story = await this.findById(id).populate('templates.template').populate('background').populate('author').select({ comments: 0 })
     return story;

@@ -52,6 +52,7 @@ const createStory = async (req, res) => {
 }
 
 const getDetailStory = async (req, res) => {
+  console.log("mé nó")
   const {
     id,
   } = req.params || {};
@@ -71,8 +72,6 @@ const getDetailStory = async (req, res) => {
   } catch (e) {
     // console.log('partner e', e)
   }
-
-  console.log(story)
 
   const liked = story.hearts.find(item => item.toString() === req.user._id)
 
@@ -188,11 +187,48 @@ const censorshipStory = async (req, res) => {
   res.json({result: 'success'});
 }
 
+const getUsersListStory = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  let result
+  try {
+    result = await storyModel.getYourListStory(ObjectId(id));
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json(result);
+
+}
+
+const getMyListStory = async (req, res) => {
+  console.log("đụ",req.user._id)
+
+  let result
+  try {
+    result = await storyModel.getYourListStory(ObjectId(req.user._id));
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  console.log(result)
+  
+  res.json(result);
+
+}
+
 module.exports = {
   createStory,
   getDetailStory,
   getListStory,
   heartStory,
   unHeartStory,
-  censorshipStory
+  censorshipStory,
+  getUsersListStory,
+  getMyListStory
 }

@@ -15,6 +15,9 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
+    description: {
+        type: String,
+    },
     picture:{
         type: String,
         default: null
@@ -23,6 +26,18 @@ const userSchema = new Schema({
         type: String,
         default: null
     },
+    followers: [
+        {
+            type: Schema.Types.ObjectId, 
+            ref: 'User'
+        }
+    ],
+    following: [
+        {
+            type: Schema.Types.ObjectId, 
+            ref: 'User'
+        }
+    ],
     hidden:{ type: Boolean, default: false },
     datecreate: { type: Date, default: Date.now },
     dateedit: { type: Date },

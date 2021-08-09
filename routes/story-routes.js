@@ -36,4 +36,14 @@ router.patch('/:id/censorship',
   storyController.censorshipStory
 )
 
+router.get('/get-users-list-story/:id',
+  authorizeJWTToken,
+  storyController.getUsersListStory
+)
+
+router.get('/get-my-list-story/mylist',
+  authorizeJWTToken,
+  storyController.getMyListStory
+)
+
 module.exports = router;
