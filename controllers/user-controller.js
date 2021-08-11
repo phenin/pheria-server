@@ -207,7 +207,7 @@ const login = async (req, res) => {
   }
 
   const token = await signToken(data)
-  
+
   res.json({token});
 }
 
@@ -238,24 +238,25 @@ const updateUser = async (req, res) => {
   } = req.params || {};
   const {
     name,
-    email,
     picture,
+    description,
     locale
   } = req.body || {};
   if ( !id ) {
 		return responseBadRequest(res);
   }
+  console.log(id)
 
   let update = {
     name,
-    email,
     picture,
-    locale 
+    description,
+    locale
   }  
 
   let result
   try {
-    result = await userModel.updateProfile(ObjectId(id), update);
+    result = await userModel.updateUser(ObjectId(id), update);
   } catch (e) {
     return responseError(res, (e || {}));
   }

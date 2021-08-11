@@ -208,16 +208,13 @@ const getUsersListStory = async (req, res) => {
 }
 
 const getMyListStory = async (req, res) => {
-  console.log("đụ",req.user._id)
 
   let result
   try {
     result = await storyModel.getYourListStory(ObjectId(req.user._id));
   } catch (e) {
     return responseError(res, (e || {}));
-  }
-  console.log(result)
-  
+  }  
   res.json(result);
 
 }
