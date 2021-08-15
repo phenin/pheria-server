@@ -21,6 +21,11 @@ router.get('/:id',
   storyController.getDetailStory
 )
 
+router.put('/:id',
+  authorizeJWTToken,
+  storyController.updateStory
+)
+
 router.patch('/:id/heart',
   authorizeJWTToken,
   storyController.heartStory

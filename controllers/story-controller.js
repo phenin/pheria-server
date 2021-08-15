@@ -107,6 +107,42 @@ const getListStory = async (req, res) => {
 
 }
 
+const updateStory = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+
+  const {
+    title,
+    contents,
+    templates,
+    background,
+    image,
+  } = req.body || {};
+  
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  const data = {
+    title,
+    background,
+    contents,
+    templates,
+    image,
+    author: _id
+  }
+
+  let result
+  try {
+    result = await storyModel.updateStory(ObjectId(id), data);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: 'success'});
+}
+
 const heartStory = async (req, res) => {
   const {
     id,
@@ -223,6 +259,7 @@ module.exports = {
   createStory,
   getDetailStory,
   getListStory,
+  updateStory,
   heartStory,
   unHeartStory,
   censorshipStory,
