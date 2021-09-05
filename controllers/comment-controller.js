@@ -48,9 +48,7 @@ const repliesComment = async (req, res) => {
   
   const data = {
     content,
-    likes: [],
-    author: req.user._id,
-    datecreate: Date.now()
+    author: req.user._id
   }
 
   let result
@@ -123,7 +121,6 @@ const hiddenComment = async (req, res) => {
 		return responseBadRequest(res);
   }
 
-
   try {
     result = await commentModel.hiddenComment(ObjectId(id));
   } catch (e) {
@@ -133,10 +130,103 @@ const hiddenComment = async (req, res) => {
   res.json({result: result});
 }
 
+const likeComment = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+  let update = {
+    $addToSet: { 
+      likes: ObjectId(req.user._id)
+    }
+  }  
+  try {
+    result = await commentModel.updateComment(ObjectId(id), update);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: result});
+}
+
+const unLikeComment = async (req, res) => {
+  const {
+    id,
+  } = req.params || {};
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+  let update = {
+    $pull: { 
+      likes: ObjectId(req.user._id)
+    }
+  }  
+  try {
+    result = await commentModel.updateComment(ObjectId(id), update);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: result});
+}
+
+const likeReplyComment = async (req, res) => {
+  const {
+    id, replyId
+  } = req.params || {};
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  console.log(id, replyId)
+  
+  let update = {
+    $addToSet: { 
+      'replies.$.likes': ObjectId(req.user._id)
+    }
+  }  
+  try {
+    result = await commentModel.likeReplyComment(ObjectId(id), ObjectId(replyId), update);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: result});
+}
+
+const unLikeReplyComment = async (req, res) => {
+  const {
+    id, replyId
+  } = req.params || {};
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+  
+  let update = {
+    $pull: { 
+      'replies.$.likes': ObjectId(req.user._id)
+    }
+  }  
+  try {
+    result = await commentModel.likeReplyComment(ObjectId(id), ObjectId(replyId), update);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json({result: result});
+}
+
+
 module.exports = {
   createComment,
   repliesComment,
   getListComment,
   updateComment,
-  hiddenComment
+  hiddenComment,
+  likeComment,
+  unLikeComment,
+  likeReplyComment,
+  unLikeReplyComment
 }

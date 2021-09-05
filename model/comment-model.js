@@ -33,6 +33,14 @@ const commentSchema = new Schema({
         type: String,
         required: true
       },
+      likes: [{ 
+        type: Schema.Types.ObjectId, 
+        ref: 'User' 
+      }],
+      datecreate: {
+        type: Date,
+        default: Date.now
+      },
     } 
   ],
   hidden: {
@@ -64,10 +72,13 @@ commentSchema.statics = {
   async updateComment(_id, update) {
     return await this.findByIdAndUpdate(_id, update, {new : true})
   },
+  async likeReplyComment(_id, commentId, update) {
+    return await this.update({ _id: _id, "replies._id": commentId }, update, {new : true})
+  },
   async getListComment(idStory) {
 		const comments = await this.find({hidden: false, story: idStory})
       .populate('replies.author', ['_id', 'name', 'picture'])
-      .populate('author', ['_id', 'name', 'picture']);
+      .populate('author', ['_id', 'name', 'picture'])
 		return { comments };
 	},
   async getCommentById(id) {

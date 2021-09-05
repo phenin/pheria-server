@@ -32,4 +32,24 @@ router.delete('/:id',
   commentController.hiddenComment
 )
 
+router.get('/:id/like',
+  authorizeJWTToken,
+  commentController.likeComment
+)
+
+router.get('/:id/unlike',
+  authorizeJWTToken,
+  commentController.unLikeComment
+)
+
+router.get('/:id/like/:replyId',
+  authorizeJWTToken,
+  commentController.likeReplyComment
+)
+
+router.get('/:id/unlike/:replyId',
+  authorizeJWTToken,
+  commentController.unLikeReplyComment
+)
+
 module.exports = router;
