@@ -123,7 +123,7 @@ storySchema.statics = {
 		query = query || {};
 		start = parseInt(start);
 		limit = parseInt(limit);
-		const story = await this.find(query).limit(limit).skip((start - 1) * limit );
+		const story = await this.find(query).limit(limit).skip((start - 1) * limit ).populate('author', 'name picture _id');
 		const total = await this.countDocuments();
 		return { story, total };
 	},

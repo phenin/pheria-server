@@ -16,6 +16,12 @@ const commentSchema = new Schema({
     type: String,
     required: true
   },
+  likes: [
+    { 
+      type: Schema.Types.ObjectId, 
+      ref: 'User' 
+    }
+  ],
   replies: [ 
     {
       author: { 
@@ -49,18 +55,19 @@ commentSchema.statics = {
       await comment.save();
     } catch (err) {
     }
-    return comment;
+    const result = await this.findById(comment._id).populate('author', ['_id', 'name', 'picture']);
+    return result
   },
   async repliesComment(_id, update) {
-    return await this.findByIdAndUpdate(_id, update)
+    return await this.findByIdAndUpdate(_id, update, {new : true}).populate('replies.author', ['_id', 'name', 'picture'])
   },
   async updateComment(_id, update) {
-    return await this.findByIdAndUpdate(_id, update)
+    return await this.findByIdAndUpdate(_id, update, {new : true})
   },
   async getListComment(idStory) {
 		const comments = await this.find({hidden: false, story: idStory})
-      .populate('replies.author', ['name', 'picture'])
-      .populate('author', ['name', 'picture']);
+      .populate('replies.author', ['_id', 'name', 'picture'])
+      .populate('author', ['_id', 'name', 'picture']);
 		return { comments };
 	},
   async getCommentById(id) {

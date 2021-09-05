@@ -29,7 +29,6 @@ const createComment = async (req, res) => {
   } catch (e) {
     return responseError(res, e)
   }
-
   res.json(result);
 
 }
@@ -49,7 +48,9 @@ const repliesComment = async (req, res) => {
   
   const data = {
     content,
-    author: req.user._id
+    likes: [],
+    author: req.user._id,
+    datecreate: Date.now()
   }
 
   let result

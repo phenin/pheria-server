@@ -52,7 +52,6 @@ const createStory = async (req, res) => {
 }
 
 const getDetailStory = async (req, res) => {
-  console.log("mé nó")
   const {
     id,
   } = req.params || {};
