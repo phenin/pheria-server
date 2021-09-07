@@ -72,13 +72,27 @@ const getListComment = async (req, res) => {
     id
   } = req.params || {};
 
+  let {
+    limit, offset
+  } = req.query || {}
   if ( !id ) {
 		return responseBadRequest(res);
   }
 
+  if(!limit) {
+    limit = 10
+  }
+  if(!offset) {
+    offset = 0
+  } 
+
+  const query = {
+    limit, offset
+  }
+
   let result
   try {
-    result = await commentModel.getListComment(ObjectId(id))
+    result = await commentModel.getListComment(ObjectId(id), query)
   } catch (e) {
     return responseError(res, e)
   }
@@ -218,6 +232,40 @@ const unLikeReplyComment = async (req, res) => {
   res.json({result: result});
 }
 
+const showRepliesComment = async (req, res) => {
+  const {
+    id
+  } = req.params || {};
+
+  if ( !id ) {
+		return responseBadRequest(res);
+  }
+
+  let {
+    limit, offset
+  } = req.query || {}
+
+  if(!limit) {
+    limit = 5
+  }
+  if(!offset) {
+    offset = 0
+  } 
+
+  const query = {
+    limit, offset
+  }
+  
+  try {
+    result = await commentModel.showRepliesComment(ObjectId(id), query);
+  } catch (e) {
+    return responseError(res, (e || {}));
+  }
+  
+  res.json(result);
+}
+
+
 
 module.exports = {
   createComment,
@@ -228,5 +276,6 @@ module.exports = {
   likeComment,
   unLikeComment,
   likeReplyComment,
-  unLikeReplyComment
+  unLikeReplyComment,
+  showRepliesComment
 }

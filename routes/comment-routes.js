@@ -52,4 +52,9 @@ router.get('/:id/unlike/:replyId',
   commentController.unLikeReplyComment
 )
 
+router.get('/:id/replies',
+  authorizeJWTToken,
+  commentController.showRepliesComment
+)
+
 module.exports = router;
