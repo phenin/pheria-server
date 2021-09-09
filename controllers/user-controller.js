@@ -245,7 +245,6 @@ const updateUser = async (req, res) => {
   if ( !id ) {
 		return responseBadRequest(res);
   }
-  console.log(id)
 
   let update = {
     name,
@@ -260,18 +259,8 @@ const updateUser = async (req, res) => {
   } catch (e) {
     return responseError(res, (e || {}));
   }
-
-  let user 
-  try {
-    user = await userModel.getUserById(ObjectId(id));
-  } catch (e) {
-    // console.log('partner e', e)
-  }
-  if (!user) {
-    return responseError(res, { status: 404, message: 'user not found' });
-  }
   
-  res.json(user);
+  res.json(result);
 }
 
 const refreshToken = async (req, res, next) => {
@@ -292,6 +281,29 @@ const refreshToken = async (req, res, next) => {
 
 }
 
+const validateName = async (req, res, next) => {
+  const {
+    name,
+  } = req.body || {};
+  if ( !name ) {
+		return responseBadRequest(res);
+  }
+
+  let user 
+  try {
+    user = await userModel.getUserByName(ObjectId(name));
+  } catch (e) {
+    // console.log('partner e', e)
+  }
+  if (!user) {
+    res.json({status: 200, message: 'Tên được chấp nhận'});
+  }
+  else {
+    res.json({status: 400, message: 'Tên đã tồn tại'})
+  }
+
+}
+
 module.exports = {
   createUser,
   loginByGoogle,
@@ -299,5 +311,6 @@ module.exports = {
   login,
   getDetailUser,
   updateUser,
-  refreshToken
+  refreshToken,
+  validateName
 }

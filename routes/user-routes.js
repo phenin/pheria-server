@@ -37,4 +37,8 @@ router.post('/refresh',
   userController.refreshToken
 )
 
+router.post('/validateName',
+  userController.validateName
+)
+
 module.exports = router;

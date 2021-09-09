@@ -265,8 +265,6 @@ const showRepliesComment = async (req, res) => {
   res.json(result);
 }
 
-
-
 module.exports = {
   createComment,
   repliesComment,

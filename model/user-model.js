@@ -54,7 +54,7 @@ userSchema.statics = {
 		return user;
 	},
     async updateUser(_id, update) {
-		return await this.findByIdAndUpdate(_id,update)
+		return await this.findByIdAndUpdate(_id,update, {new: true})
     },
     async getUserByEmail(email) {
 		const query = { email: email };
