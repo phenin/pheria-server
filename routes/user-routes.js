@@ -28,6 +28,11 @@ router.get('/profile',
   userController.getDetailUser
 )
 
+router.post('/profile',
+  authorizeJWTToken,
+  userController.getDetailUserX
+)
+
 router.put('/update-user/:id',
   authorizeJWTToken,
   userController.updateUser

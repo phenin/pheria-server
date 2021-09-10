@@ -232,6 +232,27 @@ const getDetailUser = async (req, res) => {
   res.json(user);
 }
 
+const getDetailUserX = async (req, res) => {
+  const {
+    name,
+  } = req.body || {};
+  if ( !name ) {
+		return responseBadRequest(res);
+  }
+
+  let user 
+  try {
+    user = await userModel.getUserByName(name);
+  } catch (e) {
+    // console.log('partner e', e)
+  }
+  if (!user) {
+    return responseError(res, { status: 404, message: 'user not found' });
+  }
+  
+  res.json(user);
+}
+
 const updateUser = async (req, res) => {
   const {
     id,
@@ -291,7 +312,7 @@ const validateName = async (req, res, next) => {
 
   let user 
   try {
-    user = await userModel.getUserByName(ObjectId(name));
+    user = await userModel.getUserByName(name);
   } catch (e) {
     // console.log('partner e', e)
   }
@@ -312,5 +333,6 @@ module.exports = {
   getDetailUser,
   updateUser,
   refreshToken,
-  validateName
+  validateName,
+  getDetailUserX
 }
